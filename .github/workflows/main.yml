@@ -1,24 +1,24 @@
-name: 🚀 Deploy website on push
-
 on:
+
   push:
     branches:
-      - main
+    - Main
 
+name: 🚀 Deploy website on push
 jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
-
     steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v2
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.3.2
+      with:
+        server: ftp.ricocunningham.com
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
 
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@4.4.0
-        with:
-          server: ftp.ricocunningham.com
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /ricocunningham.com/public_html/
-          port: 21
+        server-dir: /ricocunningham.com/public_html/
+        port: 21
